@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mysuru City Bus Info</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    :root {
+      --forest-green: #228B22;
+      --light-forest: #f3f9f3;
+    }
+    body {
+      background-color: var(--light-forest);
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-[var(--forest-green)] text-white p-4 flex justify-between items-center">
+    <div class="text-xl font-bold">Mysuru Bus Info</div>
+    <div class="space-x-4">
+      <a href="#home" class="hover:underline">Home</a>
+      <a href="#trip" class="hover:underline">Plan Trip</a>
+      <a href="#explore" class="hover:underline">Explore</a>
+      <a href="#fares" class="hover:underline">Fares</a>
+      <a href="#about" class="hover:underline">About</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="bg-cover bg-center h-[300px] text-white flex flex-col justify-center items-center text-center" style="background-image: url('https://source.unsplash.com/1600x900/?bus,mysore');">
+    <h1 class="text-4xl font-extrabold mb-2">Explore Mysuru by Bus</h1>
+    <p class="text-lg">Plan smarter, travel easier, see more.</p>
+  </section>
+
+  <!-- Plan Your Trip -->
+  <section id="trip" class="p-6">
+    <h2 class="text-2xl font-bold text-[var(--forest-green)] mb-4">🧭 Plan Your Trip</h2>
+    <form class="grid gap-4 md:grid-cols-2 mb-6">
+      <div>
+        <label class="block mb-1">Starting Point</label>
+        <select class="w-full p-2 border rounded">
+          <option>Kuvempunagar</option>
+          <option>Vijayanagar</option>
+          <option>Infosys</option>
+          <option>City Bus Stand</option>
+        </select>
+      </div>
+      <div>
+        <label class="block mb-1">Destination</label>
+        <select class="w-full p-2 border rounded">
+          <option>Chamundi Hills</option>
+          <option>Mysore Palace</option>
+          <option>Jaganmohan Palace</option>
+          <option>KRS Dam</option>
+        </select>
+      </div>
+      <div class="md:col-span-2">
+        <button type="button" onclick="alert('Showing sample route...')" class="bg-[var(--forest-green)] text-white px-4 py-2 rounded">Show Route</button>
+      </div>
+    </form>
+
+    <!-- Route Info Table -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border rounded shadow">
+        <thead class="bg-[var(--forest-green)] text-white">
+          <tr>
+            <th class="py-2 px-4 border">Name</th>
+            <th class="py-2 px-4 border">Departure</th>
+            <th class="py-2 px-4 border">Fare</th>
+            <th class="py-2 px-4 border">Ola/Uber Price</th>
+            <th class="py-2 px-4 border">Stops</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <td class="py-2 px-4 border">11 G</td>
+            <td class="py-2 px-4 border">10:00 AM</td>
+            <td class="py-2 px-4 border">₹30</td>
+            <td class="py-2 px-4 border">₹100</td>
+            <td class="py-2 px-4 border">City bus stand → Agrahara → Chamundipuram → ST Thomas school → Gurur</td>
+          </tr>
+          <tr class="text-center bg-gray-50">
+            <td class="py-2 px-4 border">13 A</td>
+            <td class="py-2 px-4 border">11:00 AM</td>
+            <td class="py-2 px-4 border">₹25</td>
+            <td class="py-2 px-4 border">₹90</td>
+            <td class="py-2 px-4 border">City bus stand → Agrahara → Ramanuja road → Sterling theatre → JP Nagara</td>
+          </tr>
+          <tr class="text-center">
+            <td class="py-2 px-4 border">201</td>
+            <td class="py-2 px-4 border">08:00 AM</td>
+            <td class="py-2 px-4 border">₹30</td>
+            <td class="py-2 px-4 border">₹80</td>
+            <td class="py-2 px-4 border">Mysuru City Bus Stand → Mysuru Zoo → Lalith Mahal Palace → Chamundi Hill</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="p-6">
+    <div id="map" class="h-[300px] rounded shadow"></div>
+    <script>
+      var map = L.map('map').setView([12.2958, 76.6394], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      L.marker([12.2958, 76.6394]).addTo(map).bindPopup('Mysore Palace');
+    </script>
+  </section>
+
+  <!-- Explore Mysuru -->
+  <section id="explore" class="p-6">
+    <h2 class="text-2xl font-bold text-[var(--forest-green)] mb-4">🏞️ Explore Mysuru</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="bg-white rounded shadow p-4">
+        <img src="https://source.unsplash.com/400x250/?mysore-palace" alt="Mysore Palace" class="rounded mb-2">
+        <h3 class="font-bold text-lg">Mysore Palace</h3>
+        <p>Witness royal heritage and grandeur.</p>
+      </div>
+      <div class="bg-white rounded shadow p-4">
+        <img src="https://source.unsplash.com/400x250/?chamundi-hill" alt="Chamundi Hills" class="rounded mb-2">
+        <h3 class="font-bold text-lg">Chamundi Hills</h3>
+        <p>Visit the historic Chamundeshwari Temple.</p>
+      </div>
+      <div class="bg-white rounded shadow p-4">
+        <img src="https://source.unsplash.com/400x250/?dam,water" alt="KRS Dam" class="rounded mb-2">
+        <h3 class="font-bold text-lg">KRS Dam</h3>
+        <p>Marvel at engineering and enjoy the gardens.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fare Info -->
+  <section id="fares" class="p-6">
+    <h2 class="text-2xl font-bold text-[var(--forest-green)] mb-4">💰 Fare Information</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="font-bold">Single Trip</h3>
+        <p>Based on distance. Avg ₹10 - ₹25.</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="font-bold">Monthly Pass</h3>
+        <p>Unlimited rides. ₹400 approx.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="p-6">
+    <h2 class="text-2xl font-bold text-[var(--forest-green)] mb-2">🙌 About This Project</h2>
+    <p>This student project aims to make bus travel in Mysuru easier. Built using HTML, Tailwind CSS, and Leaflet.js. Created by Vikas Anand & Team.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[var(--forest-green)] text-white text-center p-4 mt-8">
+    <p>&copy; 2025 Mysuru Bus Info | Built by students of Mysore</p>
+  </footer>
+
+</body>
+</html>
